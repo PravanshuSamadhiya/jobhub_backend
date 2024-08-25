@@ -36,3 +36,6 @@ app.listen(PORT, () => {
     connectDB();
     console.log(`server will be started at ${PORT}`);
 })
+
+module.exports = app;
+module.exports.handler = serverless(app);

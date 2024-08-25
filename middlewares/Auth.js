@@ -1,29 +1,41 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+dotenv.config();
 
-const isAuthenticate = async(req,res, next) => {
-   try {
-    const token = req.cookies.token
-    if(!token){
-        return res.status(401).json({
-            message:"User not Authenticated",
+const isAuthenticate = async (req, res, next) => {
+    try {
+       
+        const token = req.cookies.token;
+        
+
+        if (!token) {
+            return res.status(401).json({
+                message: "User not Authenticated",
+                success: false
+            });
+        }
+
+        console.log("Secret Key: ", process.env.SECRET_KEY);
+
+        const decode = jwt.verify(token, process.env.SECRET_KEY);
+        console.log("Decoded Token: ", decode);
+
+        if (!decode) {
+            return res.status(401).json({
+                message: "Invalid Token",
+                success: false
+            });
+        }
+
+        req.id = decode.userId;
+        next();
+    } catch (error) {
+        console.error("Authentication Error:", error);
+        return res.status(500).json({
+            message: "Internal Server Error",
             success: false
-        })
+        });
     }
+};
 
-    const decode = jwt.verify(token, process.env.SECRET_KEY);
-    if(!decode){
-        return res.status(401).json({
-             message:"Invalid Token",
-             success: false
-        })
-    }
-
-    req.id = decode.userId;
-    
-    next() 
-   } catch (error) {
-    console.log("error");
-   }
-}
-
-export default isAuthenticate
+export default isAuthenticate;

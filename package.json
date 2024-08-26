@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "./node_modules/.bin/netlify-lambda serve src",
-    "build": "./node_modules/.bin/netlify-lambda build src",
+    "build": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

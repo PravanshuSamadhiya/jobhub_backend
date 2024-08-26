@@ -3,7 +3,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
-const serverless = require("serverless-http");
 import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobsRoute from "./routes/job.route.js";
@@ -22,7 +21,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.get('/netlify/functions/api');
 
 const PORT = process.env.PORT ||  3000;
 
@@ -37,5 +35,3 @@ app.listen(PORT, () => {
     console.log(`server will be started at ${PORT}`);
 })
 
-module.exports = app;
-module.exports.handler = serverless(app);

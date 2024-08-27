@@ -4,7 +4,7 @@ dotenv.config();
 
 const isAuthenticate = async (req, res, next) => {
     try {
-       
+        console.log("auth started")
         const token = req.cookies.token;
         
 
@@ -14,8 +14,6 @@ const isAuthenticate = async (req, res, next) => {
                 success: false
             });
         }
-
-
         const decode = jwt.verify(token, process.env.SECRET_KEY);
 
         if (!decode) {
@@ -26,6 +24,7 @@ const isAuthenticate = async (req, res, next) => {
         }
 
         req.id = decode.userId;
+        console.log("auth end")
         next();
     } catch (error) {
         console.error("Authentication Error:", error);

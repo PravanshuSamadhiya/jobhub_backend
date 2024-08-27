@@ -3,7 +3,9 @@ import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const registerCompany = async(req, res) => {
+    console.log("company not created")
     try {
+        
         const {companyName} = req.body;
         if (!companyName) {
             return res.status(400).json({
@@ -23,7 +25,7 @@ export const registerCompany = async(req, res) => {
             name: companyName,
             userId: req.id
         });
-
+        console.log("end");
         return res.status(201).json({
             message: "Company registered successfully.",
             company,

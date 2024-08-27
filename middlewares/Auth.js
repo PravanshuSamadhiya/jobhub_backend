@@ -13,7 +13,9 @@ const isAuthenticate = async (req, res, next) => {
                 message: "User not Authenticated",
                 success: false
             });
+            
         }
+        console.log(token);
         const decode = jwt.verify(token, process.env.SECRET_KEY);
 
         if (!decode) {
@@ -22,7 +24,7 @@ const isAuthenticate = async (req, res, next) => {
                 success: false
             });
         }
-
+        console.log(decode)
         req.id = decode.userId;
         console.log("auth end")
         next();

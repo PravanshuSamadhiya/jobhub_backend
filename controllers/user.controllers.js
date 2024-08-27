@@ -112,23 +112,30 @@ export const login = async(req,res) => {
         };
 
        const tokenData = {
-            userId: user._id
+            email : user.email,
+            userId: user._id,
+
+
        }
 
-       const token = await jwt.sign(tokenData, process.env.SECRET_KEY,{expiresIn:'1d'});
-
+       const token =  jwt.sign(tokenData, process.env.SECRET_KEY,{expiresIn:'1d'});
+       user.token = token;
+       user.password = undefined;
+       console.log('Token: ',token);
        user = {
          _id: user._id,
          fullName: user.fullName,
          email: user.email,
          phoneNumber: user.phoneNumber,
          role: user.role,
-         profile: user.profile
+         profile: user.profile,
+         token : user.token
        }
 
        return res.status(200).cookie("token", token, {maxAge: 1*24*60*60*1000, httpsOnly: true, sameSite:'strict'}).json({
         message: `Welcome Back ${user.fullName}`,
         user,
+        token,
         success: true
        })
 

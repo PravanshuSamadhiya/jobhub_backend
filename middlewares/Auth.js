@@ -1,13 +1,14 @@
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import { User } from "../models/user.model.js";
 dotenv.config();
 
 const isAuthenticate = async (req, res, next) => {
     try {
         console.log("auth started")
-        const token = req.cookies.token;
-        
-
+        const token = req.cookies.token||req.body.token||req.header("Authorization").replace("Bearer ","");
+       
+      
         if (!token) {
             return res.status(401).json({
                 message: "User not Authenticated",
@@ -24,7 +25,8 @@ const isAuthenticate = async (req, res, next) => {
                 success: false
             });
         }
-        console.log(decode)
+    
+        console.log("decode", decode)
         req.id = decode.userId;
         console.log("auth end")
         next();

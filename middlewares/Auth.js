@@ -30,6 +30,7 @@ const isAuthenticate = async (req, res, next) => {
         req.id = decode.userId;
         console.log("auth end")
         next();
+        
     } catch (error) {
         console.error("Authentication Error:", error);
         return res.status(500).json({

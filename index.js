@@ -17,6 +17,7 @@ app.use(cookieParser());
 
 const corsOptions = {
     origin: ['https://jobhub-omega.vercel.app', 'http://localhost:5173'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
 app.use(cors(corsOptions));

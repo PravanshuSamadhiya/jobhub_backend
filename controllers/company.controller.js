@@ -3,7 +3,6 @@ import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const registerCompany = async(req, res) => {
-    console.log("company not created")
     try {
         
         const {companyName} = req.body;
@@ -13,7 +12,7 @@ export const registerCompany = async(req, res) => {
                 success: false
             });
         }
-        console.log("Company name: ",companyName);
+
         let company = await Company.findOne({ name: companyName });
         if (company) {
             return res.status(400).json({

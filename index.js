@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: ['https://jobhub-frontend-ashy.vercel.app/', 'http://localhost:5173'],
+    origin: ['https://jobhub-frontend-ashy.vercel.app', 'http://localhost:5173'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
